@@ -157,6 +157,23 @@ function requestFullscreen() {
 }
 
 /**
+ * Exit fullscreen mode
+ */
+function exitFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen().catch();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  }
+
+  appState.fullscreenActive = false;
+}
+
+/**
  * Transition to Page 2
  */
 function transitionToPage2() {
@@ -454,6 +471,11 @@ function updateCarouselDisplay(subPage, tabNumber) {
     img.classList.remove('active');
     if (idx === currentIndex) {
       img.classList.add('active');
+      
+      // Exit fullscreen if Contact Us page is reached
+      if (img.textContent && img.textContent.trim().toLowerCase().includes('contact us')) {
+        exitFullscreen();
+      }
     }
   });
 
