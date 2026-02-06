@@ -124,23 +124,27 @@ body {
 }
 
 .welcome-text {
-  font-size: clamp(2rem, 12vw, 6rem);
+  font-size: clamp(1.8rem, 10vw, 5rem);
   font-weight: 300;
-  letter-spacing: 2px;
-  line-height: 1.2;
-  word-spacing: 0.3em;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  word-spacing: 0.2em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .spin-wheel-wrapper {
-  display: inline-block;
+  display: inline-flex;
   position: relative;
-  margin-left: 0.3em;
+  align-items: center;
+  margin: 0 0.2em;
 }
 
 .spin-wheel {
   position: relative;
-  width: 350px;
-  height: 350px;
+  width: clamp(300px, 25vw, 500px);
+  height: clamp(300px, 25vw, 500px);
   display: inline-block;
   margin: 0 auto;
 }
@@ -149,19 +153,29 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 100px;
+  width: 120px;
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 1.5vw, 1.1rem);
   font-weight: inherit;
   letter-spacing: inherit;
-  transform-origin: 0 0;
-  opacity: 0.5;
+  transform-origin: center center;
+  opacity: 0.4;
   transition: opacity 0.5s ease;
   white-space: nowrap;
   pointer-events: none;
+  text-align: center;
+}
+
+.wheel-word:nth-child(1), .wheel-word:nth-child(2), .wheel-word:nth-child(3), .wheel-word:nth-child(4), .wheel-word:nth-child(5) {
+  opacity: 0.5;
+}
+
+.wheel-word:nth-child(6), .wheel-word:nth-child(7), .wheel-word:nth-child(8), .wheel-word:nth-child(9), .wheel-word:nth-child(10) {
+  opacity: 0.5;
+  transform-origin: center center;
 }
 
 .wheel-word.highlighted {
@@ -176,12 +190,13 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 8vw, 3.5rem);
   color: #00d4ff;
   text-shadow: 0 0 30px rgba(0, 212, 255, 0.7);
   font-weight: 600;
   width: auto;
   height: auto;
+  white-space: nowrap;
 }
 
 /* Spin Wheel Animation */
