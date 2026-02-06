@@ -531,8 +531,24 @@ function createSubPages() {
       // Initialize carousel images - set first image as active
       const carouselImages = content.querySelectorAll('.carousel-image, .carousel-placeholder');
       const carouselIndicators = content.querySelectorAll('.indicator');
+      const tabNum = parseInt(content.dataset.tab);
+      const subpageNum = PRODUCTS.indexOf(product) + 1;
 
       carouselImages.forEach((img, imgIndex) => {
+        // Update image source to load from directory
+        if (img.classList.contains('carousel-placeholder')) {
+          // Keep placeholder as is for Contact Us
+          img.textContent = 'Contact Us';
+        } else {
+          // Load image from directory structure: subpage{N}/tab{N}/image{N}.svg
+          const imageNum = imgIndex + 1;
+          const imagePath = `subpage${subpageNum}/tab${tabNum}/image${imageNum}.svg`;
+          img.style.backgroundImage = `url('${imagePath}')`;
+          img.style.backgroundSize = 'cover';
+          img.style.backgroundPosition = 'center';
+          img.textContent = '';  // Clear text content
+        }
+
         if (imgIndex === 0) {
           img.classList.add('active');
         } else {
@@ -543,10 +559,10 @@ function createSubPages() {
       carouselIndicators.forEach((indicator, indIdx) => {
         if (indIdx === 0) {
           indicator.classList.add('active');
-          indicator.textContent = '#';
+          indicator.textContent = '●';
         } else {
           indicator.classList.remove('active');
-          indicator.textContent = '*';
+          indicator.textContent = '○';
         }
       });
 
