@@ -153,28 +153,44 @@ function transitionToPage2() {
  * Animate the intro text word-by-word at natural reading pace
  */
 function animateIntroText() {
-  const rawText = 'Hi!, I\'m OIS AI, Learn how to make milling operations more profitable?';
-  const words = rawText.split(' ');
+  const rawText = 'Hi!, I\'m OIS AI<br>Learn how to make<br>Mill more profitable!';
+  const lines = rawText.split('<br>');
+  const allTokens = [];
+  
+  // Build array of words and line breaks
+  lines.forEach((line, lineIndex) => {
+    const words = line.split(' ');
+    words.forEach(word => allTokens.push(word));
+    if (lineIndex < lines.length - 1) {
+      allTokens.push('<br>');
+    }
+  });
 
   introText.innerHTML = '';
-  let wordIndex = 0;
+  let tokenIndex = 0;
   const wordDelayMs = 300; // ~200 WPM (comfortable reading speed for presentation)
 
   const animateWord = () => {
-    if (wordIndex < words.length) {
-      const word = document.createElement('span');
-      word.className = 'word';
-      word.textContent = words[wordIndex];
-      if (wordIndex < words.length - 1) {
-        word.textContent += ' ';
+    if (tokenIndex < allTokens.length) {
+      const token = allTokens[tokenIndex];
+      
+      if (token === '<br>') {
+        introText.appendChild(document.createElement('br'));
+      } else {
+        const word = document.createElement('span');
+        word.className = 'word';
+        word.textContent = token;
+        if (tokenIndex < allTokens.length - 1 && allTokens[tokenIndex + 1] !== '<br>') {
+          word.textContent += ' ';
+        }
+        introText.appendChild(word);
+
+        // Force reflow and trigger animation
+        word.offsetHeight;
+        word.style.animation = `fadeInUp 0.4s ease-out forwards`;
       }
-      introText.appendChild(word);
 
-      // Force reflow and trigger animation
-      word.offsetHeight;
-      word.style.animation = `fadeInUp 0.4s ease-out forwards`;
-
-      wordIndex++;
+      tokenIndex++;
       setTimeout(animateWord, wordDelayMs);
     } else {
       // All words animated - wait 2 seconds then show next indicator
