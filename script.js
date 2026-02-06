@@ -482,7 +482,7 @@ function updateCarouselDisplay(subPage, tabNumber) {
   // Update indicators
   indicators.forEach((indicator, idx) => {
     indicator.classList.remove('active');
-    indicator.textContent = idx === currentIndex ? '#' : '*';
+    indicator.textContent = idx === currentIndex ? '●' : '○';
     if (idx === currentIndex) {
       indicator.classList.add('active');
     }
