@@ -29,6 +29,7 @@ function initApp() {
   checkOrientation();
   setupEventListeners();
   preventDefaultNavigation();
+  initializeLandingPage();
 }
 
 /**
@@ -88,6 +89,38 @@ function setupEventListeners() {
   // Prevent scrolling
   window.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
   window.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+}
+
+/**
+ * Initialize Landing Page with scrollable list
+ */
+function initializeLandingPage() {
+  const scrollList = document.getElementById('scrollList');
+  const items = [
+    'Optimization',
+    'Innovation',
+    'Integration',
+    'Maintenance',
+    'Analytics',
+    'Training',
+    'Consulting'
+  ];
+
+  // Create list items and add duplicates for seamless infinite scroll
+  const createListItems = () => {
+    scrollList.innerHTML = '';
+    // Add items many times for smooth infinite scroll without visible jumps
+    for (let i = 0; i < 10; i++) {
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'scroll-item';
+        div.textContent = item;
+        scrollList.appendChild(div);
+      });
+    }
+  };
+
+  createListItems();
 }
 
 /**
